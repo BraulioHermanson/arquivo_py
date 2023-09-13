@@ -29,8 +29,7 @@ def gerenciar_compras(compras):
     pass
 
 def main():
-    pass
-
-adicionar_item(compras,"arroz", 2)
-remover_item(compras,"arroz")
-print(compras)
+    while True:
+        print("1 Criar uma nova lista de compras")
+        print("2 Carregar uma lista existente")
+        print("3 Sair")
