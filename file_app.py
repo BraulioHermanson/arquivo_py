@@ -1,7 +1,6 @@
 import json
 import time
 
-compras = {}
 
 def adicionar_item(compras, item, quantidade):
     compras[item] = quantidade
@@ -26,7 +25,7 @@ def carregar_compras(nome_arquivo):
     with open(nome_arquivo.json, "r") as arquivo:
         return json.load(arquivo)
 
-def gerenciar_compras(compras):
+def gerenciar_compras(compras, nome_arquivo =None):
     while True:
         print("1 Adicionar item")
         print("2 Remover item")
@@ -36,13 +35,21 @@ def gerenciar_compras(compras):
         escolha = input("Escolha uma opção: ")
 
         if escolha == "1":
-            pass
+            item = input("Digite o nome do item: ")
+            quantidade = int(input("Digite a quantidade:"))
+            adicionar_item(compras, item, quantidade)
         elif escolha == "2":
-            pass
+            item = input("Digite o nome do item: ")
+            remover_item(compras, item)
         elif escolha == "3":
-            pass
+            visualizar_compras(compras)
         elif escolha == "4":
-            pass
+            if nome_arquivo is None:
+                nome_arquivo = input("Digite o nome do arquivo para salvar: ")
+            if not nome_arquivo.endswith(".json"):
+                nome_arquivo += ".json"
+            salvar_compras(compras,nome_arquivo)
+            break
         elif escolha == "5":
             break
         else:
@@ -56,7 +63,8 @@ def main():
         print("3 Sair")
         escolha = input("Esoolha uma opção: ")
         if escolha == "1":
-            pass
+            compras = {}
+            gerenciar_compras(compras)
         elif escolha == "2":
             pass
         elif escolha == "3":
