@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 
@@ -27,6 +28,7 @@ def carregar_compras(nome_arquivo):
 
 def gerenciar_compras(compras, nome_arquivo =None):
     while True:
+        os.system("cls" if os.name == "nt" else "clear")
         print("1 Adicionar item")
         print("2 Remover item")
         print("3 Visualizar lista")
@@ -58,6 +60,7 @@ def gerenciar_compras(compras, nome_arquivo =None):
 
 def main():
     while True:
+        os.system("cls" if os.name == "nt" else "clear")
         print("1 Criar uma nova lista de compras")
         print("2 Carregar uma lista existente")
         print("3 Sair")
@@ -66,7 +69,23 @@ def main():
             compras = {}
             gerenciar_compras(compras)
         elif escolha == "2":
-            pass
+            print("Listas disponiveis: ")
+            arquivos = [arquivo for arquivo in os.listdir() if arquivo.endswith(".json")]
+            if not arquivos: 
+                print("Nenhuma lista foi encontrada.")
+                time.sleep(2)
+                continue
+            for i, arquivo in enumerate(arquivos, 1):
+                print(f"{i} {arquivo}")
+            escolha = int(input("Escolha alguma lista para carregar (0 se nenhuma): "))
+            if escolha == 0:
+                continue
+            if escolha < 0 or escolha > len(arquivos):
+                print("Opção inválida")
+                time.sleep(1)
+                continue
+            compras = carregar_compras(arquivos[escolha - 1])
+            gerenciar_compras(compras, arquivos[escolha - 1])
         elif escolha == "3":
             break
         else:
